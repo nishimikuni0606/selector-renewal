@@ -4,7 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="page-title">株式会社selector | WalkingPad 日本総代理店</title>
+  <!-- SEO -->
+  <meta name="description" content="株式会社selectorは、WalkingPadシリーズの日本国内正規総代理店です。ECサイト運営・構築事業および商品開発事業を展開しています。お問い合わせはお気軽に。">
+  <meta name="keywords" content="WalkingPad,ウォーキングパッド,日本総代理店,selector,ECサイト運営,歩行マシン,電動ウォーカー">
+  <link rel="canonical" href="https://selector.co.jp/">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://selector.co.jp/">
+  <meta property="og:title" content="株式会社selector | WalkingPad 日本総代理店">
+  <meta property="og:description" content="株式会社selectorは、WalkingPadシリーズの日本国内正規総代理店です。ECサイト運営・構築事業および商品開発事業を展開しています。">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="株式会社selector">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="株式会社selector | WalkingPad 日本総代理店">
+  <meta name="twitter:description" content="WalkingPadシリーズの日本国内正規総代理店。ECサイト運営・構築・商品開発事業を展開。">
+  <!-- Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.youtube.com">
+  <link rel="dns-prefetch" href="https://i.ytimg.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -111,7 +130,7 @@
     .service-lead { font-size:15px; color:var(--text-mid); line-height:2; }
     .service-lineup-label { font-size:13px; font-weight:700; display:flex; align-items:center; gap:12px; margin-bottom:24px; }
     .service-lineup-label::before { content:''; width:22px; height:2.5px; background:var(--red); }
-    .service-cards { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .service-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
     .service-card { display:flex; align-items:center; gap:16px; padding:20px; border:1.5px solid var(--border); border-radius:14px; color:var(--text); font-weight:700; font-size:14px; transition:border-color .2s,box-shadow .2s,transform .2s; }
     .service-card:hover { border-color:#aaa; box-shadow:0 4px 16px rgba(0,0,0,.07); transform:translateY(-2px); }
     .service-card-img { width:80px; height:58px; background:var(--bg-gray); border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; overflow:hidden; background-size:cover; background-position:center; }
@@ -200,11 +219,10 @@
     @media(max-width:960px) {
       #header_{padding:0 24px} .gnav a:not(.gnav-cta){display:none}
       #hero{grid-template-columns:1fr} .hero-right{display:none} .hero-left{padding:60px 32px}
-      #company,#service,#news{padding:80px 32px} #recruit{padding:80px 32px}
-      .recruit-marquee{margin:0 -32px} .company-inner{grid-template-columns:1fr}
-      .company-photos{display:none} .service-top{grid-template-columns:1fr;gap:24px}
-      .service-cards{grid-template-columns:1fr} .recruit-inner{grid-template-columns:1fr}
-      .recruit-photos{display:none} .contact-inner{padding:80px 32px}
+      #service,#news{padding:80px 32px}
+      .service-top{grid-template-columns:1fr;gap:24px}
+      .service-cards{grid-template-columns:1fr}
+      .contact-inner{padding:80px 32px}
       .contact-btns{flex-direction:column;align-items:center}
       .s-footer{padding:48px 32px 32px} .footer-top{flex-direction:column;gap:32px}
       .footer-nav{flex-wrap:wrap;gap:32px} .footer-bottom{flex-direction:column;align-items:flex-start;gap:12px}
@@ -219,11 +237,11 @@
     <span class="logo-text">ELECTOR</span>
   </a>
   <nav class="gnav">
-    <a href="#company" data-key="nav1">selectorについて</a>
+    <a href="https://selector.co.jp/company/" data-key="nav1">会社概要</a>
     <a href="#service" data-key="nav2">サービス</a>
-    <a href="#recruit" data-key="nav3">採用情報</a>
     <a href="#news" data-key="nav4">ニュース</a>
-    <a href="#contact" class="gnav-cta" data-key="nav5">お問い合わせ</a>
+    <a href="https://selector.co.jp/recruit/" data-key="nav3">採用情報</a>
+    <a href="https://selector.co.jp/contact/" class="gnav-cta" data-key="nav5">お問い合わせ</a>
   </nav>
 </header>
 
@@ -245,25 +263,6 @@
   </div>
 </section>
 
-<section id="company">
-  <div class="company-inner">
-    <div class="company-photos">
-      <div class="company-photo a-visible" id="company-photo-1"><div class="company-photo-placeholder">Photo 1</div><div class="wipe-cover"></div></div>
-      <div class="company-photo a-visible" id="company-photo-2"><div class="company-photo-placeholder">Photo 2</div><div class="wipe-cover"></div></div>
-      <div class="company-photo a-visible" id="company-photo-3"><div class="company-photo-placeholder">Photo 3</div><div class="wipe-cover"></div></div>
-    </div>
-    <div class="company-text">
-      <span class="sec-line a-fade"></span>
-      <h2 class="sec-en a-lead"><span><span data-key="about_heading">About Us</span></span></h2>
-      <blockquote class="a-fade a-delay-2" data-key="about_quote">上質なプロダクトを、<br>世界から日本へ。</blockquote>
-      <div class="company-links">
-        <a href="#" class="pill-link a-fade a-delay-3"><span data-key="about_link1">代表メッセージ</span> <span class="arr">→</span></a>
-        <a href="#" class="pill-link a-fade a-delay-4"><span data-key="about_link2">企業理念</span> <span class="arr">→</span></a>
-        <a href="#" class="pill-link a-fade a-delay-5"><span data-key="about_link3">会社概要・アクセス</span> <span class="arr">→</span></a>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section id="service">
   <div class="service-inner">
@@ -276,53 +275,25 @@
     </div>
     <div class="service-lineup-label a-fade" data-key="service_lineup_label">サービスラインナップ</div>
     <div class="service-cards">
-      <a href="#" class="service-card a-fade a-delay-1">
+      <a href="https://selector.co.jp/service/" class="service-card a-fade a-delay-1">
         <div class="service-card-img" id="service-img-1"><svg viewBox="0 0 28 28"><rect x="3" y="9" width="22" height="14" rx="2"/><path d="M9 9V7a5 5 0 0110 0v2"/><circle cx="14" cy="16" r="2"/></svg></div>
-        <span class="service-card-title" data-key="service_card1">WalkingPad 正規販売</span>
+        <span class="service-card-title" data-key="service_card1">ECサイト運営事業</span>
         <span class="service-card-arr">→</span>
       </a>
-      <a href="#" class="service-card a-fade a-delay-2">
-        <div class="service-card-img" id="service-img-2"><svg viewBox="0 0 28 28"><path d="M4 20V8l10-4 10 4v12"/><rect x="10" y="14" width="8" height="6"/></svg></div>
-        <span class="service-card-title" data-key="service_card2">輸入・代理店事業</span>
+      <a href="https://selector.co.jp/service/" class="service-card a-fade a-delay-2">
+        <div class="service-card-img" id="service-img-2"><svg viewBox="0 0 28 28"><rect x="4" y="6" width="20" height="16" rx="2"/><path d="M4 11h20M9 6v2M19 6v2"/></svg></div>
+        <span class="service-card-title" data-key="service_card2">ECサイト構築事業</span>
         <span class="service-card-arr">→</span>
       </a>
-      <a href="#" class="service-card a-fade a-delay-3">
-        <div class="service-card-img" id="service-img-3"><svg viewBox="0 0 28 28"><rect x="4" y="6" width="20" height="16" rx="2"/><path d="M4 11h20M9 6v2M19 6v2"/></svg></div>
-        <span class="service-card-title" data-key="service_card3">法人向けソリューション</span>
-        <span class="service-card-arr">→</span>
-      </a>
-      <a href="#" class="service-card a-fade a-delay-4">
-        <div class="service-card-img" id="service-img-4"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10"/><path d="M14 9v5l4 2"/></svg></div>
-        <span class="service-card-title" data-key="service_card4">アフターサポート</span>
+      <a href="https://selector.co.jp/service/" class="service-card a-fade a-delay-3">
+        <div class="service-card-img" id="service-img-3"><svg viewBox="0 0 28 28"><path d="M7 4h14l2 6H5L7 4z"/><rect x="4" y="10" width="20" height="14" rx="2"/><path d="M11 15h6"/></svg></div>
+        <span class="service-card-title" data-key="service_card3">商品開発事業</span>
         <span class="service-card-arr">→</span>
       </a>
     </div>
   </div>
 </section>
 
-<section id="recruit">
-  <div class="recruit-inner">
-    <div class="recruit-photos">
-      <div class="recruit-photo a-visible" id="recruit-photo-1"><div class="recruit-photo-bg"></div><div class="recruit-photo-placeholder">Photo 1</div><div class="wipe-cover"></div></div>
-      <div class="recruit-photo a-visible" id="recruit-photo-2"><div class="recruit-photo-bg"></div><div class="recruit-photo-placeholder">Photo 2</div><div class="wipe-cover"></div></div>
-      <div class="recruit-photo a-visible" id="recruit-photo-3"><div class="recruit-photo-bg"></div><div class="recruit-photo-placeholder">Photo 3</div><div class="wipe-cover"></div></div>
-    </div>
-    <div class="recruit-text">
-      <span class="sec-line a-fade"></span>
-      <h2 class="sec-en a-lead"><span><span data-key="recruit_heading">Recruit</span></span></h2>
-      <p class="recruit-catchphrase a-fade a-delay-2" data-key="recruit_body">上質を追求する挑戦に向けて<br><br>私たちselectorは、前例のない挑戦を楽しみながら、自らとチームを成長させ続けられる仲間を求めています。</p>
-      <a href="#" class="pill-link-white a-fade a-delay-3"><span data-key="recruit_btn">採用情報</span> <span class="arr">→</span></a>
-    </div>
-  </div>
-  <div class="recruit-marquee">
-    <div class="recruit-marquee-track">
-      <div class="recruit-marquee-item">RECRUIT</div><div class="recruit-marquee-item">JOIN US</div><div class="recruit-marquee-item">SELECTOR</div>
-      <div class="recruit-marquee-item">RECRUIT</div><div class="recruit-marquee-item">JOIN US</div><div class="recruit-marquee-item">SELECTOR</div>
-      <div class="recruit-marquee-item">RECRUIT</div><div class="recruit-marquee-item">JOIN US</div><div class="recruit-marquee-item">SELECTOR</div>
-      <div class="recruit-marquee-item">RECRUIT</div><div class="recruit-marquee-item">JOIN US</div><div class="recruit-marquee-item">SELECTOR</div>
-    </div>
-  </div>
-</section>
 
 <section id="news">
   <div class="news-inner">
@@ -342,10 +313,10 @@
   <div class="contact-inner">
     <div class="contact-line a-fade"></div>
     <h2 class="contact-en a-lead"><span><span data-key="contact_heading">Contact</span></span></h2>
-    <p class="contact-desc a-fade a-delay-2" data-key="contact_desc">サービスについての質問や<br>selectorへのお問い合わせはこちらから。</p>
+    <p class="contact-desc a-fade a-delay-2" data-key="contact_desc">依頼のご相談やお見積りなど、<br>少しでも気になる点がございましたら、まずはお気軽にご相談ください。</p>
     <div class="contact-btns">
-      <a href="#" class="contact-btn a-fade a-delay-3"><span data-key="contact_btn1">selectorに関するお問い合わせ</span> <span class="arr">→</span></a>
-      <a href="#" class="contact-btn a-fade a-delay-4"><span data-key="contact_btn2">サービスに関するお問い合わせ</span> <span class="arr">→</span></a>
+      <a href="https://selector.co.jp/contact/" class="contact-btn a-fade a-delay-3"><span data-key="contact_btn1">お問い合わせフォームへ</span> <span class="arr">→</span></a>
+      <a href="tel:0364512061" class="contact-btn a-fade a-delay-4"><span data-key="contact_btn2">TEL: 03-6451-2061</span> <span class="arr">→</span></a>
     </div>
   </div>
 </section>
@@ -359,16 +330,13 @@
       </div>
       <div class="footer-nav">
         <div class="footer-nav-col">
-          <a href="#company">selectorについて <span class="arr">→</span></a>
-          <a href="#">代表メッセージ <span class="arr">→</span></a>
-          <a href="#">企業理念 <span class="arr">→</span></a>
-          <a href="#">会社情報・アクセス <span class="arr">→</span></a>
+          <a href="https://selector.co.jp/company/">会社概要 <span class="arr">→</span></a>
+          <a href="#service">サービス <span class="arr">→</span></a>
+          <a href="#news">ニュース <span class="arr">→</span></a>
         </div>
         <div class="footer-nav-col">
-          <a href="#service">サービス <span class="arr">→</span></a>
-          <a href="#">WalkingPad 正規販売 <span class="arr">→</span></a>
-          <a href="#recruit">採用情報 <span class="arr">→</span></a>
-          <a href="#news">ニュース <span class="arr">→</span></a>
+          <a href="https://selector.co.jp/recruit/">採用情報 <span class="arr">→</span></a>
+          <a href="https://selector.co.jp/contact/">お問い合わせ <span class="arr">→</span></a>
         </div>
       </div>
     </div>
@@ -404,25 +372,22 @@ function loadHeroVideoFromIDB(callback) {
 // ── デフォルトコンテンツ定義
 var DEFAULT = {
   hero_line1:'上質だけを、', hero_line2:'日常に。', hero_company:'selector Inc.', hero_badge:'WalkingPad 日本正規総代理店',
-  about_heading:'About Us', about_quote:'上質なプロダクトを、<br>世界から日本へ。',
-  about_link1:'代表メッセージ', about_link2:'企業理念', about_link3:'会社概要・アクセス',
-  service_heading:'Our Service', service_lead:'独自のネットワークで厳選した世界水準のプロダクトと、国内一貫サポートで、日常をより上質なものにします。',
+  hero_video_url:'https://www.youtube.com/watch?v=n621uy4GWmQ',
+  service_heading:'Our Service', service_lead:'WalkingPadシリーズの日本国内正規総代理店として、ブランド価値を維持しながら販売・流通・マーケティングを一元管理しています。',
   service_lineup_label:'サービスラインナップ',
-  service_card1:'WalkingPad 正規販売', service_card2:'輸入・代理店事業', service_card3:'法人向けソリューション', service_card4:'アフターサポート',
-  recruit_heading:'Recruit', recruit_body:'上質を追求する挑戦に向けて<br><br>私たちselectorは、前例のない挑戦を楽しみながら、自らとチームを成長させ続けられる仲間を求めています。',
-  recruit_btn:'採用情報',
+  service_card1:'ECサイト運営事業', service_card2:'ECサイト構築事業', service_card3:'商品開発事業',
   news_heading:'News', news_more:'お知らせ一覧',
   news:[
-    {cat:'プレスリリース', date:'2026.05.20', title:'WalkingPad 新モデル X21 の国内販売を開始しました'},
-    {cat:'お知らせ',       date:'2026.04.10', title:'東京・渋谷にショールームをオープンいたしました'},
-    {cat:'採用',           date:'2026.03.01', title:'2026年度 新卒採用エントリー受付を開始しました'},
-    {cat:'お知らせ',       date:'2026.01.15', title:'法人向け一括導入プランのご提供を開始しました'}
+    {cat:'お知らせ', date:'2025.11.20', title:'WalkingPadシリーズ初のエアロバイク販売開始'},
+    {cat:'お知らせ', date:'2024.11.15', title:'WalkingPad 国内独占販売契約を締結'},
+    {cat:'お知らせ', date:'2022.07.10', title:'WalkingPad R1 販売開始'},
+    {cat:'お知らせ', date:'2021.05.01', title:'WalkingPad S1 販売開始'}
   ],
-  contact_heading:'Contact', contact_desc:'サービスについての質問や<br>selectorへのお問い合わせはこちらから。',
-  contact_btn1:'selectorに関するお問い合わせ', contact_btn2:'サービスに関するお問い合わせ',
-  footer_address:'株式会社selector<br>〒153-0053 東京都目黒区五本木2-25-9 W\'the1st 3F<br>TEL: 03-6451-2061　FAX: 03-6451-2062',
-  footer_copy:'© selector Inc.',
-  nav1:'selectorについて', nav2:'サービス', nav3:'採用情報', nav4:'ニュース', nav5:'お問い合わせ',
+  contact_heading:'Contact', contact_desc:'依頼のご相談やお見積りなど、<br>少しでも気になる点がございましたら、まずはお気軽にご相談ください。',
+  contact_btn1:'お問い合わせフォームへ', contact_btn2:'TEL: 03-6451-2061',
+  footer_address:'株式会社selector<br>〒153-0053 東京都目黒区五本木2-25-9 W\'the1st 3F<br>TEL: 03-6451-2061（営業時間：10:00〜19:00）<br>FAX: 03-6451-2062',
+  footer_copy:'© selector.co.jp',
+  nav1:'会社概要', nav2:'サービス', nav3:'採用情報', nav4:'ニュース', nav5:'お問い合わせ',
   images:{}
 };
 
@@ -456,26 +421,8 @@ C.news.forEach(function(item, i) {
 // ── 画像適用
 function applyImages() {
   var imgs = C.images || {};
-  // 会社写真
-  ['1','2','3'].forEach(function(n) {
-    var el = document.getElementById('company-photo-' + n);
-    if (el && imgs['company_photo_' + n]) {
-      el.style.backgroundImage = 'url(' + imgs['company_photo_' + n] + ')';
-      var ph = el.querySelector('.company-photo-placeholder');
-      if (ph) ph.style.display = 'none';
-    }
-  });
-  // 採用写真
-  ['1','2','3'].forEach(function(n) {
-    var el = document.getElementById('recruit-photo-' + n);
-    if (el && imgs['recruit_photo_' + n]) {
-      el.style.backgroundImage = 'url(' + imgs['recruit_photo_' + n] + ')';
-      var ph = el.querySelector('.recruit-photo-placeholder');
-      if (ph) ph.style.display = 'none';
-    }
-  });
   // サービスカード画像
-  ['1','2','3','4'].forEach(function(n) {
+  ['1','2','3'].forEach(function(n) {
     var el = document.getElementById('service-img-' + n);
     if (el && imgs['service_img_' + n]) {
       el.style.backgroundImage = 'url(' + imgs['service_img_' + n] + ')';
@@ -513,6 +460,8 @@ function applyImages() {
     } else {
       var img = document.createElement('img');
       img.src = src;
+      img.loading = 'lazy';
+      img.alt = 'WalkingPad 日本正規総代理店 selector';
       img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:20px;z-index:1;position:absolute;inset:0;';
       heroWrap.insertBefore(img, heroWrap.firstChild);
     }
@@ -572,6 +521,31 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
     if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 72, behavior:'smooth' }); }
   });
 });
+</script>
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Corporation",
+  "name": "株式会社selector",
+  "alternateName": "selector Inc.",
+  "url": "https://selector.co.jp/",
+  "logo": "https://selector.co.jp/",
+  "description": "WalkingPadシリーズの日本国内正規総代理店。ECサイト運営・構築事業および商品開発事業を展開しています。",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "五本木2-25-9 W'the1st 3F",
+    "addressLocality": "目黒区",
+    "addressRegion": "東京都",
+    "postalCode": "153-0053",
+    "addressCountry": "JP"
+  },
+  "telephone": "03-6451-2061",
+  "faxNumber": "03-6451-2062",
+  "openingHours": "Mo-Fr 10:00-19:00",
+  "sameAs": []
+}
 </script>
 </body>
 </html>
