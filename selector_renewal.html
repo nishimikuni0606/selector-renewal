@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ja" class="js-enabled">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">株式会社selector | WalkingPad 日本総代理店</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #eb4335; --red-recruit: #e35c44;
+      --text: #222222; --text-mid: #555555; --text-light: #999999;
+      --bg-white: #ffffff; --bg-gray: #f2f4f7; --bg-dark: #222222;
+      --border: #d8d8d8;
+      --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+      --ease-wipe: cubic-bezier(0.43, 0.05, 0.17, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic Medium',YuGothic,メイリオ,sans-serif; background:#fff; color:var(--text); line-height:1.7; overflow-x:hidden; font-feature-settings:"palt"; }
+    a { text-decoration:none; color:inherit; }
+
+    /* TEXT REVEAL */
+    .js-enabled .a-lead { opacity:0; }
+    .js-enabled .a-lead > span { display:inline-flex; overflow:hidden; }
+    .js-enabled .a-lead > span > span { display:block; transform:translate(0,100%); transition:transform 1s var(--ease-out); }
+    .js-enabled .a-lead.-visible { opacity:1; }
+    .js-enabled .a-lead.-visible > span > span { transform:translate(0,0); }
+
+    /* FADE */
+    .js-enabled .a-fade { opacity:0; transform:translateY(24px); transition:opacity 0.7s var(--ease-out),transform 0.7s var(--ease-out); }
+    .js-enabled .a-fade.-visible { opacity:1; transform:none; }
+    .a-delay-1{transition-delay:.1s!important} .a-delay-2{transition-delay:.2s!important}
+    .a-delay-3{transition-delay:.3s!important} .a-delay-4{transition-delay:.4s!important}
+    .a-delay-5{transition-delay:.5s!important}
+
+    /* KEYFRAMES */
+    @keyframes icon-show { 0%{opacity:0;transform:translate(0,100%)} 10%{opacity:1;transform:translate(0,-50%)} 15%{opacity:1;transform:translate(0,0)} 20%{opacity:1;transform:translate(0,-10%)} 25%,100%{opacity:1;transform:translate(0,0)} }
+    @keyframes icon-float { 0%{transform:translateY(0)} 100%{transform:translateY(-12%)} }
+    @keyframes recruit-loop { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    @keyframes scroll-bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+    @keyframes arrow-hover { 0%{transform:translateX(0);opacity:1} 40%{transform:translateX(8px);opacity:0} 41%{transform:translateX(-8px);opacity:0} 100%{transform:translateX(0);opacity:1} }
+
+    /* HEADER */
+    #header_ { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 52px; height:72px; background:rgba(255,255,255,.96); backdrop-filter:blur(10px); }
+    .logo { display:flex; align-items:center; gap:6px; }
+    .logo-mark { width:34px; height:34px; background:var(--red); border-radius:7px; display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Montserrat',sans-serif; font-size:18px; font-weight:900; }
+    .logo-text { font-family:'Montserrat',sans-serif; font-size:18px; font-weight:700; color:var(--text); letter-spacing:.05em; }
+    .gnav { display:flex; align-items:center; gap:36px; }
+    .gnav a { font-size:13px; color:var(--text); position:relative; transition:color .2s; }
+    .gnav a::after { content:''; position:absolute; left:0; bottom:-2px; width:0; height:1.5px; background:var(--red); transition:width .25s var(--ease-out); }
+    .gnav a:not(.gnav-cta):hover { color:var(--red); }
+    .gnav a:not(.gnav-cta):hover::after { width:100%; }
+    .gnav-cta { padding:9px 22px; border:1.5px solid var(--red); border-radius:100px; color:var(--red)!important; font-size:13px; font-weight:500; transition:background .2s,color .2s!important; }
+    .gnav-cta:hover { background:var(--red); color:#fff!important; }
+    .gnav-cta::after { display:none!important; }
+
+    /* HERO */
+    #hero { display:grid; grid-template-columns:42rem 1fr; min-height:100vh; padding-top:72px; }
+    .hero-left { background:#fff; display:flex; flex-direction:column; justify-content:center; padding:80px 60px 80px 80px; position:relative; z-index:1; }
+    .hero-title { font-family:'Noto Sans JP',sans-serif; font-size:clamp(52px,5.6vw,88px); font-weight:900; line-height:1.25; letter-spacing:.06em; color:var(--text); margin-bottom:24px; }
+    .hero-title.a-lead > span:nth-child(1) > span { transition-delay:2.2s; }
+    .hero-title.a-lead > span:nth-child(2) > span { transition-delay:2.5s; }
+    .hero-company { font-family:'Montserrat',sans-serif; font-size:13px; font-weight:700; color:var(--text-mid); letter-spacing:.05em; opacity:0; transform:translateY(10px); transition:opacity .5s 2.8s,transform .5s 2.8s var(--ease-out); }
+    .loaded .hero-company { opacity:1; transform:none; }
+    .hero-scroll { position:absolute; bottom:40px; left:80px; display:flex; align-items:center; gap:10px; font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; letter-spacing:.2em; color:var(--text-light); opacity:0; transform:translateY(-12px); transition:opacity .4s 3.2s,transform .5s var(--ease-out) 3.2s; }
+    .loaded .hero-scroll { opacity:1; transform:none; }
+    .hero-scroll-line { width:32px; height:1px; background:var(--text-light); animation:scroll-bounce 1.8s ease-in-out infinite; }
+    .hero-right { position:relative; background:#faeae1; overflow:hidden; border-radius:0 0 0 80px; }
+    .hero-right::before { content:''; position:absolute; bottom:-15%; right:-10%; width:70%; height:70%; background:#f0d8cc; border-radius:50%; }
+    .hero-right .wipe-cover { position:absolute; inset:0; background:#fff; z-index:3; transition:transform .8s var(--ease-wipe) .5s; }
+    .loaded .hero-right .wipe-cover { transform:translateX(100%); }
+    .hero-illust { position:relative; z-index:2; width:85%; max-width:540px; margin:auto; top:50%; transform:translateY(-50%); aspect-ratio:4/3; background:rgba(255,255,255,.55); border-radius:20px; border:1px solid rgba(255,255,255,.8); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; }
+    .hero-illust img { width:100%; height:100%; object-fit:cover; border-radius:20px; position:absolute; inset:0; }
+    .hero-video-wrap { position:absolute; inset:0; width:100%; height:100%; border-radius:20px; overflow:hidden; z-index:1; }
+    .hero-video-wrap video { width:100%; height:100%; object-fit:cover; }
+    .hero-video-wrap iframe { width:100%; height:100%; border:none; }
+
+    /* SECTION COMMON */
+    .sec-line { display:block; width:28px; height:3px; background:var(--red); margin-bottom:20px; }
+    .sec-en { font-size:clamp(36px,4.2vw,58px); font-weight:900; line-height:1.1; color:var(--text); letter-spacing:-.01em; margin-bottom:28px; }
+    .pill-link { display:inline-flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 24px; border:1.5px solid var(--border); border-radius:100px; font-size:14px; font-weight:500; color:var(--text); max-width:300px; transition:border-color .2s; }
+    .pill-link:hover { border-color:#888; }
+    .pill-link .arr { color:var(--red); font-weight:700; }
+    .pill-link:hover .arr { animation:arrow-hover .4s forwards; }
+
+    /* COMPANY */
+    #company { background:var(--bg-gray); padding:130px 80px; overflow:hidden; }
+    .company-inner { max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .company-photos { position:relative; height:500px; }
+    .company-photo { position:absolute; border-radius:14px; overflow:hidden; background-size:cover; background-position:center; }
+    .company-photo:nth-child(1) { width:260px; height:340px; left:0; top:60px; background-color:linear-gradient(145deg,#b8c4ce,#9aaab8); }
+    .company-photo:nth-child(2) { width:185px; height:230px; right:30px; top:0; background-color:linear-gradient(145deg,#c8b8b0,#b8a09a); }
+    .company-photo:nth-child(3) { width:185px; height:210px; right:30px; bottom:0; background-color:linear-gradient(145deg,#b8c8c0,#9ab8b0); }
+    .company-photo .wipe-cover { position:absolute; inset:0; background:var(--bg-gray); z-index:2; transition:transform .8s var(--ease-wipe); }
+    .company-photo:nth-child(1) .wipe-cover { transition-delay:0s; }
+    .company-photo:nth-child(2) .wipe-cover { transition-delay:.15s; }
+    .company-photo:nth-child(3) .wipe-cover { transition-delay:.3s; }
+    .company-photo.-visible .wipe-cover { transform:translateX(100%); }
+    .company-photo-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:linear-gradient(145deg,#b8c4ce,#9aaab8); color:rgba(255,255,255,.6); font-size:11px; letter-spacing:.08em; }
+    .company-photo:nth-child(2) .company-photo-placeholder { background:linear-gradient(145deg,#c8b8b0,#b8a09a); }
+    .company-photo:nth-child(3) .company-photo-placeholder { background:linear-gradient(145deg,#b8c8c0,#9ab8b0); }
+    .company-text blockquote { font-size:18px; font-weight:700; color:var(--text); line-height:1.7; padding-left:36px; position:relative; margin-bottom:44px; }
+    .company-text blockquote::before { content:'❝'; position:absolute; left:0; top:-6px; font-size:28px; color:#ccc; line-height:1; }
+    .company-links { display:flex; flex-direction:column; gap:10px; }
+
+    /* SERVICE */
+    #service { background:#fff; padding:130px 80px; }
+    .service-inner { max-width:1240px; margin:0 auto; }
+    .service-top { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:end; margin-bottom:60px; }
+    .service-lead { font-size:15px; color:var(--text-mid); line-height:2; }
+    .service-lineup-label { font-size:13px; font-weight:700; display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+    .service-lineup-label::before { content:''; width:22px; height:2.5px; background:var(--red); }
+    .service-cards { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .service-card { display:flex; align-items:center; gap:16px; padding:20px; border:1.5px solid var(--border); border-radius:14px; color:var(--text); font-weight:700; font-size:14px; transition:border-color .2s,box-shadow .2s,transform .2s; }
+    .service-card:hover { border-color:#aaa; box-shadow:0 4px 16px rgba(0,0,0,.07); transform:translateY(-2px); }
+    .service-card-img { width:80px; height:58px; background:var(--bg-gray); border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; overflow:hidden; background-size:cover; background-position:center; }
+    .service-card-img svg { width:28px; height:28px; stroke:#aaa; fill:none; stroke-width:1.5; }
+    .service-card-img img { width:100%; height:100%; object-fit:cover; }
+    .service-card-title { flex:1; }
+    .service-card-arr { color:var(--red); font-size:18px; font-weight:900; flex-shrink:0; }
+    .service-card:hover .service-card-arr { animation:arrow-hover .4s forwards; }
+
+    /* RECRUIT */
+    #recruit { background:var(--red-recruit); padding:130px 80px; overflow:hidden; }
+    #recruit .sec-line { background:rgba(255,255,255,.6); }
+    #recruit .sec-en { color:#fff; }
+    .recruit-inner { max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; margin-bottom:64px; }
+    .recruit-photos { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+    .recruit-photo { aspect-ratio:2/3; border-radius:12px; overflow:hidden; position:relative; background-size:cover; background-position:center; }
+    .recruit-photo-bg { position:absolute; inset:0; background:rgba(0,0,0,.18); }
+    .recruit-photo:nth-child(2) .recruit-photo-bg { background:rgba(0,0,0,.24); }
+    .recruit-photo:nth-child(3) .recruit-photo-bg { background:rgba(0,0,0,.15); }
+    .recruit-photo .wipe-cover { position:absolute; inset:0; background:var(--red-recruit); z-index:2; transition:transform .8s var(--ease-wipe); }
+    .recruit-photo:nth-child(1) .wipe-cover { transition-delay:0s; }
+    .recruit-photo:nth-child(2) .wipe-cover { transition-delay:.15s; }
+    .recruit-photo:nth-child(3) .wipe-cover { transition-delay:.3s; }
+    .recruit-photo.-visible .wipe-cover { transform:translateX(100%); }
+    .recruit-photo-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:11px; color:rgba(255,255,255,.4); letter-spacing:.05em; }
+    .recruit-catchphrase { font-size:15px; color:rgba(255,255,255,.9); line-height:2; margin-bottom:40px; }
+    .pill-link-white { display:inline-flex; align-items:center; justify-content:space-between; gap:20px; padding:15px 28px; border:1.5px solid rgba(255,255,255,.6); border-radius:100px; font-size:14px; font-weight:500; color:#fff; min-width:200px; transition:background .2s,border-color .2s; }
+    .pill-link-white:hover { background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.9); }
+    .pill-link-white .arr { font-weight:700; }
+    .pill-link-white:hover .arr { animation:arrow-hover .4s forwards; }
+    .recruit-marquee { overflow:hidden; margin:0 -80px; }
+    .recruit-marquee-track { display:flex; gap:16px; width:max-content; animation:recruit-loop 20s linear infinite; }
+    .recruit-marquee-item { flex-shrink:0; font-family:'Montserrat',sans-serif; font-size:80px; font-weight:900; color:rgba(255,255,255,.12); letter-spacing:.05em; white-space:nowrap; padding-right:60px; }
+
+    /* NEWS */
+    #news { background:#fff; padding:130px 80px; }
+    .news-inner { max-width:1240px; margin:0 auto; }
+    .news-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:48px; }
+    .news-more { display:inline-flex; align-items:center; gap:10px; padding:12px 28px; border:1.5px solid var(--border); border-radius:100px; font-size:13px; font-weight:500; color:var(--text); transition:border-color .2s; }
+    .news-more:hover { border-color:#888; }
+    .news-more .arr { color:var(--red); font-weight:700; }
+    .news-more:hover .arr { animation:arrow-hover .4s forwards; }
+    .news-list { border-top:1px solid #e0e0e0; }
+    .news-item { display:flex; align-items:center; gap:20px; padding:22px 0; border-bottom:1px solid #e0e0e0; color:var(--text); transition:padding-left .25s var(--ease-out); }
+    .news-item:hover { padding-left:8px; }
+    .news-cat { font-size:11px; padding:4px 14px; border:1px solid #d0d0d0; border-radius:100px; color:var(--text-mid); white-space:nowrap; }
+    .news-date { font-family:'Montserrat',sans-serif; font-size:12px; color:var(--text-light); white-space:nowrap; min-width:88px; }
+    .news-title { flex:1; font-size:14px; color:var(--text-mid); transition:color .2s; }
+    .news-item:hover .news-title { color:var(--text); }
+    .news-arr { color:var(--red); font-size:16px; font-weight:700; flex-shrink:0; }
+    .news-item:hover .news-arr { animation:arrow-hover .4s forwards; }
+
+    /* CONTACT */
+    #contact { position:relative; overflow:hidden; min-height:520px; display:flex; align-items:center; justify-content:center; text-align:center; }
+    .contact-bg-img { position:absolute; inset:0; background:linear-gradient(rgba(20,20,20,.62),rgba(20,20,20,.68)),linear-gradient(135deg,#2d2d2d 0%,#3d3d3d 50%,#2d2d2d 100%); background-size:cover; background-position:center; }
+    .contact-inner { position:relative; z-index:1; padding:120px 60px; width:100%; }
+    .contact-line { width:28px; height:3px; background:var(--red); margin:0 auto 24px; }
+    .contact-en { font-size:clamp(60px,8vw,108px); font-weight:900; color:#fff; line-height:1.05; margin-bottom:24px; }
+    .contact-desc { font-size:15px; color:rgba(255,255,255,.75); line-height:1.9; margin-bottom:52px; }
+    .contact-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    .contact-btn { display:inline-flex; align-items:center; justify-content:space-between; gap:24px; padding:18px 36px; background:#fff; border-radius:100px; font-size:14px; font-weight:500; color:var(--text); min-width:300px; transition:background .2s,transform .2s; }
+    .contact-btn:hover { background:#f0f0f0; transform:translateY(-2px); }
+    .contact-btn .arr { color:var(--red); font-weight:700; font-size:16px; }
+    .contact-btn:hover .arr { animation:arrow-hover .4s forwards; }
+
+    /* FOOTER */
+    .s-footer { background:var(--bg-dark); padding:64px 80px 40px; }
+    .footer-inner { max-width:1240px; margin:0 auto; }
+    .footer-top { display:flex; justify-content:space-between; align-items:flex-start; gap:60px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,.1); margin-bottom:32px; }
+    .footer-logo { display:flex; align-items:center; gap:6px; margin-bottom:20px; }
+    .footer-logo .logo-text { color:#fff; }
+    .footer-addr { font-size:13px; color:rgba(255,255,255,.4); line-height:2.2; }
+    .footer-nav { display:flex; gap:56px; }
+    .footer-nav-col { display:flex; flex-direction:column; }
+    .footer-nav a { font-size:13px; color:rgba(255,255,255,.55); display:flex; align-items:center; gap:8px; padding:9px 0; border-bottom:1px solid rgba(255,255,255,.07); transition:color .2s; }
+    .footer-nav a:hover { color:#fff; }
+    .footer-nav a .arr { color:var(--red); font-size:13px; }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; }
+    .footer-copy { font-size:12px; color:rgba(255,255,255,.28); }
+    .footer-sub { display:flex; gap:20px; }
+    .footer-sub a { font-size:12px; color:rgba(255,255,255,.32); transition:color .2s; }
+    .footer-sub a:hover { color:rgba(255,255,255,.7); }
+    .footer-admin-link { font-size:11px; color:rgba(255,255,255,.15); transition:color .2s; margin-left:16px; }
+    .footer-admin-link:hover { color:rgba(255,255,255,.5); }
+
+    @media(max-width:960px) {
+      #header_{padding:0 24px} .gnav a:not(.gnav-cta){display:none}
+      #hero{grid-template-columns:1fr} .hero-right{display:none} .hero-left{padding:60px 32px}
+      #company,#service,#news{padding:80px 32px} #recruit{padding:80px 32px}
+      .recruit-marquee{margin:0 -32px} .company-inner{grid-template-columns:1fr}
+      .company-photos{display:none} .service-top{grid-template-columns:1fr;gap:24px}
+      .service-cards{grid-template-columns:1fr} .recruit-inner{grid-template-columns:1fr}
+      .recruit-photos{display:none} .contact-inner{padding:80px 32px}
+      .contact-btns{flex-direction:column;align-items:center}
+      .s-footer{padding:48px 32px 32px} .footer-top{flex-direction:column;gap:32px}
+      .footer-nav{flex-wrap:wrap;gap:32px} .footer-bottom{flex-direction:column;align-items:flex-start;gap:12px}
+    }
+  </style>
+</head>
+<body>
+
+<header id="header_">
+  <a href="#" class="logo">
+    <span class="logo-mark">S</span>
+    <span class="logo-text">ELECTOR</span>
+  </a>
+  <nav class="gnav">
+    <a href="#company" data-key="nav1">selectorについて</a>
+    <a href="#service" data-key="nav2">サービス</a>
+    <a href="#recruit" data-key="nav3">採用情報</a>
+    <a href="#news" data-key="nav4">ニュース</a>
+    <a href="#contact" class="gnav-cta" data-key="nav5">お問い合わせ</a>
+  </nav>
+</header>
+
+<section id="hero">
+  <div class="hero-left">
+    <h1 class="hero-title a-lead">
+      <span><span data-key="hero_line1">上質だけを、</span></span><br>
+      <span><span data-key="hero_line2">日常に。</span></span>
+    </h1>
+    <p class="hero-company" data-key="hero_company">selector Inc.</p>
+    <div class="hero-scroll"><span class="hero-scroll-line"></span>SCROLL</div>
+  </div>
+  <div class="hero-right">
+    <div class="wipe-cover"></div>
+    <div class="hero-illust" id="hero-illust-wrap">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#d05a40" stroke-width="1.5" opacity="0.6" id="hero-illust-icon"><rect x="8" y="18" width="40" height="26" rx="4"/><path d="M18 18v-6a10 10 0 0120 0v6"/><circle cx="28" cy="31" r="5"/></svg>
+      <span style="font-size:13px;color:rgba(100,60,40,.55);letter-spacing:.08em;" data-key="hero_badge">WalkingPad 日本正規総代理店</span>
+    </div>
+  </div>
+</section>
+
+<section id="company">
+  <div class="company-inner">
+    <div class="company-photos">
+      <div class="company-photo a-visible" id="company-photo-1"><div class="company-photo-placeholder">Photo 1</div><div class="wipe-cover"></div></div>
+      <div class="company-photo a-visible" id="company-photo-2"><div class="company-photo-placeholder">Photo 2</div><div class="wipe-cover"></div></div>
+      <div class="company-photo a-visible" id="company-photo-3"><div class="company-photo-placeholder">Photo 3</div><div class="wipe-cover"></div></div>
+    </div>
+    <div class="company-text">
+      <span class="sec-line a-fade"></span>
+      <h2 class="sec-en a-lead"><span><span data-key="about_heading">About Us</span></span></h2>
+      <blockquote class="a-fade a-delay-2" data-key="about_quote">上質なプロダクトを、<br>世界から日本へ。</blockquote>
+      <div class="company-links">
+        <a href="#" class="pill-link a-fade a-delay-3"><span data-key="about_link1">代表メッセージ</span> <span class="arr">→</span></a>
+        <a href="#" class="pill-link a-fade a-delay-4"><span data-key="about_link2">企業理念</span> <span class="arr">→</span></a>
+        <a href="#" class="pill-link a-fade a-delay-5"><span data-key="about_link3">会社概要・アクセス</span> <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="service">
+  <div class="service-inner">
+    <div class="service-top">
+      <div>
+        <span class="sec-line a-fade"></span>
+        <h2 class="sec-en a-lead"><span><span data-key="service_heading">Our Service</span></span></h2>
+      </div>
+      <p class="service-lead a-fade a-delay-2" data-key="service_lead">独自のネットワークで厳選した世界水準のプロダクトと、国内一貫サポートで、日常をより上質なものにします。</p>
+    </div>
+    <div class="service-lineup-label a-fade" data-key="service_lineup_label">サービスラインナップ</div>
+    <div class="service-cards">
+      <a href="#" class="service-card a-fade a-delay-1">
+        <div class="service-card-img" id="service-img-1"><svg viewBox="0 0 28 28"><rect x="3" y="9" width="22" height="14" rx="2"/><path d="M9 9V7a5 5 0 0110 0v2"/><circle cx="14" cy="16" r="2"/></svg></div>
+        <span class="service-card-title" data-key="service_card1">WalkingPad 正規販売</span>
+        <span class="service-card-arr">→</span>
+      </a>
+      <a href="#" class="service-card a-fade a-delay-2">
+        <div class="service-card-img" id="service-img-2"><svg viewBox="0 0 28 28"><path d="M4 20V8l10-4 10 4v12"/><rect x="10" y="14" width="8" height="6"/></svg></div>
+        <span class="service-card-title" data-key="service_card2">輸入・代理店事業</span>
+        <span class="service-card-arr">→</span>
+      </a>
+      <a href="#" class="service-card a-fade a-delay-3">
+        <div class="service-card-img" id="service-img-3"><svg viewBox="0 0 28 28"><rect x="4" y="6" width="20" height="16" rx="2"/><path d="M4 11h20M9 6v2M19 6v2"/></svg></div>
+        <span class="service-card-title" data-key="service_card3">法人向けソリューション</span>
+        <span class="service-card-arr">→</span>
+      </a>
+      <a href="#" class="service-card a-fade a-delay-4">
+        <div class="service-card-img" id="service-img-4"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10"/><path d="M14 9v5l4 2"/></svg></div>
+        <span class="service-card-title" data-key="service_card4">アフターサポート</span>
+        <span class="service-card-arr">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="recruit">
+  <div class="recruit-inner">
+    <div class="recruit-photos">
+      <div class="recruit-photo a-visible" id="recruit-photo-1"><div class="recruit-photo-bg"></div><div class="recruit-photo-placeholder">Photo 1</div><div class="wipe-cover"></div></div>
+      <div class="recruit-photo a-visible" id="recruit-photo-2"><div class="recruit-photo-bg"></div><div class="recruit-photo-placeholder">Photo 2</div><div class="wipe-cover"></div></div>
+      <div class="recruit-photo a-visible" id="recruit-photo-3"><div class="recruit-photo-bg"></div><div class="recruit-photo-placeholder">Photo 3</div><div class="wipe-cover"></div></div>
+    </div>
+    <div class="recruit-text">
+      <span class="sec-line a-fade"></span>
+      <h2 class="sec-en a-lead"><span><span data-key="recruit_heading">Recruit</span></span></h2>
+      <p class="recruit-catchphrase a-fade a-delay-2" data-key="recruit_body">上質を追求する挑戦に向けて<br><br>私たちselectorは、前例のない挑戦を楽しみながら、自らとチームを成長させ続けられる仲間を求めています。</p>
+      <a href="#" class="pill-link-white a-fade a-delay-3"><span data-key="recruit_btn">採用情報</span> <span class="arr">→</span></a>
+    </div>
+  </div>
+  <div class="recruit-marquee">
+    <div class="recruit-marquee-track">
+      <div class="recruit-marquee-item">RECRUIT</div><div class="recruit-marquee-item">JOIN US</div><div class="recruit-marquee-item">SELECTOR</div>
+      <div class="recruit-marquee-item">RECRUIT</div><div class="recruit-marquee-item">JOIN US</div><div class="recruit-marquee-item">SELECTOR</div>
+      <div class="recruit-marquee-item">RECRUIT</div><div class="recruit-marquee-item">JOIN US</div><div class="recruit-marquee-item">SELECTOR</div>
+      <div class="recruit-marquee-item">RECRUIT</div><div class="recruit-marquee-item">JOIN US</div><div class="recruit-marquee-item">SELECTOR</div>
+    </div>
+  </div>
+</section>
+
+<section id="news">
+  <div class="news-inner">
+    <div class="news-header">
+      <div>
+        <span class="sec-line a-fade"></span>
+        <h2 class="sec-en a-lead"><span><span data-key="news_heading">News</span></span></h2>
+      </div>
+      <a href="#" class="news-more a-fade a-delay-2"><span data-key="news_more">お知らせ一覧</span> <span class="arr">→</span></a>
+    </div>
+    <div class="news-list" id="news-list"></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-bg-img" id="contact-bg"></div>
+  <div class="contact-inner">
+    <div class="contact-line a-fade"></div>
+    <h2 class="contact-en a-lead"><span><span data-key="contact_heading">Contact</span></span></h2>
+    <p class="contact-desc a-fade a-delay-2" data-key="contact_desc">サービスについての質問や<br>selectorへのお問い合わせはこちらから。</p>
+    <div class="contact-btns">
+      <a href="#" class="contact-btn a-fade a-delay-3"><span data-key="contact_btn1">selectorに関するお問い合わせ</span> <span class="arr">→</span></a>
+      <a href="#" class="contact-btn a-fade a-delay-4"><span data-key="contact_btn2">サービスに関するお問い合わせ</span> <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="s-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo"><span class="logo-mark">S</span><span class="logo-text">ELECTOR</span></div>
+        <div class="footer-addr" data-key="footer_address">株式会社selector<br>〒153-0053 東京都目黒区五本木2-25-9 W'the1st 3F<br>TEL: 03-6451-2061　FAX: 03-6451-2062</div>
+      </div>
+      <div class="footer-nav">
+        <div class="footer-nav-col">
+          <a href="#company">selectorについて <span class="arr">→</span></a>
+          <a href="#">代表メッセージ <span class="arr">→</span></a>
+          <a href="#">企業理念 <span class="arr">→</span></a>
+          <a href="#">会社情報・アクセス <span class="arr">→</span></a>
+        </div>
+        <div class="footer-nav-col">
+          <a href="#service">サービス <span class="arr">→</span></a>
+          <a href="#">WalkingPad 正規販売 <span class="arr">→</span></a>
+          <a href="#recruit">採用情報 <span class="arr">→</span></a>
+          <a href="#news">ニュース <span class="arr">→</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy" data-key="footer_copy">© selector Inc.</span>
+      <div class="footer-sub">
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">特定商取引法に基づく表記</a>
+        <a href="admin.html" class="footer-admin-link">管理画面</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── IndexedDB から動画を読み込む
+function loadHeroVideoFromIDB(callback) {
+  var req = indexedDB.open('selector_media', 1);
+  req.onupgradeneeded = function(e) { e.target.result.createObjectStore('files'); };
+  req.onsuccess = function(e) {
+    var db = e.target.result;
+    var tx = db.transaction('files', 'readonly');
+    var get = tx.objectStore('files').get('hero_video');
+    get.onsuccess = function(ev) {
+      if (ev.target.result) callback(URL.createObjectURL(ev.target.result));
+      else callback(null);
+    };
+    get.onerror = function() { callback(null); };
+  };
+  req.onerror = function() { callback(null); };
+}
+
+// ── デフォルトコンテンツ定義
+var DEFAULT = {
+  hero_line1:'上質だけを、', hero_line2:'日常に。', hero_company:'selector Inc.', hero_badge:'WalkingPad 日本正規総代理店',
+  about_heading:'About Us', about_quote:'上質なプロダクトを、<br>世界から日本へ。',
+  about_link1:'代表メッセージ', about_link2:'企業理念', about_link3:'会社概要・アクセス',
+  service_heading:'Our Service', service_lead:'独自のネットワークで厳選した世界水準のプロダクトと、国内一貫サポートで、日常をより上質なものにします。',
+  service_lineup_label:'サービスラインナップ',
+  service_card1:'WalkingPad 正規販売', service_card2:'輸入・代理店事業', service_card3:'法人向けソリューション', service_card4:'アフターサポート',
+  recruit_heading:'Recruit', recruit_body:'上質を追求する挑戦に向けて<br><br>私たちselectorは、前例のない挑戦を楽しみながら、自らとチームを成長させ続けられる仲間を求めています。',
+  recruit_btn:'採用情報',
+  news_heading:'News', news_more:'お知らせ一覧',
+  news:[
+    {cat:'プレスリリース', date:'2026.05.20', title:'WalkingPad 新モデル X21 の国内販売を開始しました'},
+    {cat:'お知らせ',       date:'2026.04.10', title:'東京・渋谷にショールームをオープンいたしました'},
+    {cat:'採用',           date:'2026.03.01', title:'2026年度 新卒採用エントリー受付を開始しました'},
+    {cat:'お知らせ',       date:'2026.01.15', title:'法人向け一括導入プランのご提供を開始しました'}
+  ],
+  contact_heading:'Contact', contact_desc:'サービスについての質問や<br>selectorへのお問い合わせはこちらから。',
+  contact_btn1:'selectorに関するお問い合わせ', contact_btn2:'サービスに関するお問い合わせ',
+  footer_address:'株式会社selector<br>〒153-0053 東京都目黒区五本木2-25-9 W\'the1st 3F<br>TEL: 03-6451-2061　FAX: 03-6451-2062',
+  footer_copy:'© selector Inc.',
+  nav1:'selectorについて', nav2:'サービス', nav3:'採用情報', nav4:'ニュース', nav5:'お問い合わせ',
+  images:{}
+};
+
+// ── localStorageからコンテンツをロード
+function loadContent() {
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem('selector_content') || '{}'); } catch(e){}
+  return Object.assign({}, DEFAULT, saved, { images: Object.assign({}, DEFAULT.images, (saved.images||{})), news: saved.news || DEFAULT.news });
+}
+
+var C = loadContent();
+
+// ── テキストコンテンツ適用
+document.querySelectorAll('[data-key]').forEach(function(el) {
+  var key = el.getAttribute('data-key');
+  if (C[key] !== undefined) el.innerHTML = C[key];
+});
+
+// ── ニュースリスト生成
+var newsList = document.getElementById('news-list');
+C.news.forEach(function(item, i) {
+  var a = document.createElement('a');
+  a.href = '#'; a.className = 'news-item a-fade a-delay-' + (i+1);
+  a.innerHTML = '<span class="news-cat">' + item.cat + '</span>' +
+    '<span class="news-date">' + item.date + '</span>' +
+    '<span class="news-title">' + item.title + '</span>' +
+    '<span class="news-arr">→</span>';
+  newsList.appendChild(a);
+});
+
+// ── 画像適用
+function applyImages() {
+  var imgs = C.images || {};
+  // 会社写真
+  ['1','2','3'].forEach(function(n) {
+    var el = document.getElementById('company-photo-' + n);
+    if (el && imgs['company_photo_' + n]) {
+      el.style.backgroundImage = 'url(' + imgs['company_photo_' + n] + ')';
+      var ph = el.querySelector('.company-photo-placeholder');
+      if (ph) ph.style.display = 'none';
+    }
+  });
+  // 採用写真
+  ['1','2','3'].forEach(function(n) {
+    var el = document.getElementById('recruit-photo-' + n);
+    if (el && imgs['recruit_photo_' + n]) {
+      el.style.backgroundImage = 'url(' + imgs['recruit_photo_' + n] + ')';
+      var ph = el.querySelector('.recruit-photo-placeholder');
+      if (ph) ph.style.display = 'none';
+    }
+  });
+  // サービスカード画像
+  ['1','2','3','4'].forEach(function(n) {
+    var el = document.getElementById('service-img-' + n);
+    if (el && imgs['service_img_' + n]) {
+      el.style.backgroundImage = 'url(' + imgs['service_img_' + n] + ')';
+      el.style.backgroundSize = 'cover';
+      var svg = el.querySelector('svg');
+      if (svg) svg.style.display = 'none';
+    }
+  });
+  // ヒーロービジュアル（IndexedDB動画 → URL動画 → 画像 の優先順）
+  function applyHeroMedia(src, isVideo) {
+    var heroWrap = document.getElementById('hero-illust-wrap');
+    if (!heroWrap || !src) return;
+    var heroIcon = document.getElementById('hero-illust-icon');
+    var heroBadge = heroWrap.querySelector('[data-key="hero_badge"]');
+    if (heroIcon) heroIcon.style.display = 'none';
+    if (heroBadge) heroBadge.style.display = 'none';
+    if (isVideo) {
+      var mediaWrap = document.createElement('div');
+      mediaWrap.className = 'hero-video-wrap';
+      // YouTube iframe
+      var ytMatch = src.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^&?\s]+)/);
+      if (ytMatch) {
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/' + ytMatch[1] + '?autoplay=1&mute=1&loop=1&playlist=' + ytMatch[1] + '&playsinline=1&rel=0';
+        iframe.allow = 'autoplay; encrypted-media; fullscreen';
+        iframe.allowFullscreen = true;
+        mediaWrap.appendChild(iframe);
+      } else {
+        var video = document.createElement('video');
+        video.src = src;
+        video.autoplay = true; video.muted = true; video.loop = true; video.playsInline = true;
+        mediaWrap.appendChild(video);
+      }
+      heroWrap.insertBefore(mediaWrap, heroWrap.firstChild);
+    } else {
+      var img = document.createElement('img');
+      img.src = src;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:20px;z-index:1;position:absolute;inset:0;';
+      heroWrap.insertBefore(img, heroWrap.firstChild);
+    }
+  }
+
+  if (C.hero_video_idb) {
+    // IndexedDBから動画を取得（admin.htmlでアップロードしたMP4）
+    loadHeroVideoFromIDB(function(blobUrl) {
+      if (blobUrl) applyHeroMedia(blobUrl, true);
+      else if (C['hero_video_url']) applyHeroMedia(C['hero_video_url'], true);
+      else if (imgs['hero_image']) applyHeroMedia(imgs['hero_image'], false);
+    });
+  } else if (C['hero_video_url']) {
+    applyHeroMedia(C['hero_video_url'], true);
+  } else if (imgs['hero_image']) {
+    applyHeroMedia(imgs['hero_image'], false);
+  }
+  // コンタクト背景
+  if (imgs['contact_bg']) {
+    var cbg = document.getElementById('contact-bg');
+    if (cbg) cbg.style.backgroundImage = 'linear-gradient(rgba(20,20,20,.62),rgba(20,20,20,.68)),url(' + imgs['contact_bg'] + ')';
+  }
+}
+applyImages();
+
+// ── アニメーション
+window.addEventListener('load', function() {
+  document.body.classList.add('loaded');
+  var heroTitle = document.querySelector('.hero-title.a-lead');
+  if (heroTitle) requestAnimationFrame(function(){ heroTitle.classList.add('-visible'); });
+});
+
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var el = entry.target;
+      if (el.classList.contains('a-lead') && !el.classList.contains('hero-title')) el.classList.add('-visible');
+      if (el.classList.contains('a-fade')) el.classList.add('-visible');
+      if (el.classList.contains('a-visible')) el.classList.add('-visible');
+      observer.unobserve(el);
+    }
+  });
+}, { threshold:0.15, rootMargin:'0px 0px -40px 0px' });
+
+document.querySelectorAll('.a-lead:not(.hero-title),.a-fade,.a-visible').forEach(function(el){ observer.observe(el); });
+
+var header = document.getElementById('header_');
+window.addEventListener('scroll', function() {
+  header.style.borderBottom = window.scrollY > 10 ? '1px solid rgba(0,0,0,.08)' : 'none';
+}, { passive:true });
+
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var id = this.getAttribute('href');
+    if (id === '#') return;
+    var t = document.querySelector(id);
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 72, behavior:'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
